@@ -89,24 +89,6 @@ Usuario: admin
 
 Contraseña: admin123
 
-📁 Estructura del proyecto
-text
-monster-gym/
-├── app.py                 # Aplicación principal Flask
-├── requirements.txt       # Dependencias Python
-├── bd_monster_gym.sql     # Script de la base de datos MySQL
-├── templates/             # Plantillas HTML
-│   ├── base.html
-│   ├── index.html
-│   ├── login.html
-│   ├── register.html
-│   ├── inventario.html
-│   ├── maquinas.html
-│   ├── usuarios.html
-│   ├── personal.html
-│   ├── distribuidores.html
-│   └── ... (editar, registrar)
-└── README.md
 📌 Notas importantes
 Seguridad: En producción, cambiar JWT_SECRET_KEY, SECRET_KEY y usar JWT_COOKIE_SECURE = True (requiere HTTPS).
 
