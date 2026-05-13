@@ -89,17 +89,6 @@ Usuario: admin
 
 Contraseña: admin123
 
-🔐 Estructura de roles y permisos
-Módulo	Admin	Recepcionista	Cliente
-Inventario (CRUD)	✅	❌	❌
-Máquinas (CRUD)	✅	✅	❌
-Usuarios (listado)	✅ (todos)	✅ (solo clientes)	❌
-Registrar usuario	✅ (cualquier rol)	✅ (solo clientes)	❌
-Editar usuario	✅	✅ (solo clientes)	❌
-Eliminar usuario	✅	❌	❌
-Personal (empleados)	✅	❌	❌
-Distribuidores	✅	❌	❌
-Notificaciones	✅ (todas)	✅ (propias)	✅ (propias)
 📁 Estructura del proyecto
 text
 monster-gym/
