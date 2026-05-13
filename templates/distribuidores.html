@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Distribuidores{% endblock %}
+{% block content %}
+<h2>🚚 Distribuidores</h2>
+<a href="{{ url_for('registrar_distribuidor') }}" class="btn btn-primary mb-3">➕ Agregar distribuidor</a>
+{% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+{% else %}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre completo</th>
+                    <th>Teléfono</th>
+                    <th>Categoría</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for d in distribuidores_list %}
+                <tr>
+                    <td>{{ d.ID_Usuario }}</td>
+                    <td>{{ d.Nombre }} {{ d.Apellido }}</td>
+                    <td>{{ d.Telefono }}</td>
+                    <td>{{ d.Categoria }}</td>
+                    <td>
+                        <a href="{{ url_for('editar_distribuidor', id_distribuidor=d.ID_Usuario) }}" class="btn btn-sm btn-warning">✏️ Editar</a>
+                        <form method="POST" action="{{ url_for('eliminar_distribuidor', id_distribuidor=d.ID_Usuario) }}" style="display:inline;" onsubmit="return confirm('¿Eliminar distribuidor?')">
+                            <button class="btn btn-sm btn-danger">🗑️ Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}
+{% endblock %}

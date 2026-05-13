@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Editar Distribuidor{% endblock %}
+{% block content %}
+<h2>✏️ Editar distribuidor</h2>
+<form method="POST">
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" name="nombre" value="{{ distribuidor.Nombre }}" class="form-control" required>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Apellido</label>
+            <input type="text" name="apellido" value="{{ distribuidor.Apellido }}" class="form-control" required>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Teléfono</label>
+            <input type="text" name="telefono" value="{{ distribuidor.Telefono }}" class="form-control" required>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Categoría</label>
+            <input type="text" name="categoria" value="{{ distribuidor.Categoria_Distribuidor }}" class="form-control" required>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Actualizar</button>
+    <a href="{{ url_for('distribuidores') }}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Registrar máquina{% endblock %}
+{% block content %}
+<h2>Nueva máquina</h2>
+<form method="POST">
+    <div class="mb-3"><label>Nombre</label><input type="text" name="nombre" class="form-control" required></div>
+    <div class="mb-3"><label>Categoría</label><input type="text" name="categoria" class="form-control" required></div>
+    <button type="submit" class="btn btn-success">Guardar</button>
+    <a href="/maquinas" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

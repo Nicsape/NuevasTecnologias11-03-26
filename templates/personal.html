@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Personal del Gimnasio{% endblock %}
+{% block content %}
+<h2>👥 Personal</h2>
+<a href="{{ url_for('registrar_personal') }}" class="btn btn-primary mb-3">➕ Agregar nuevo empleado</a>
+{% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+{% else %}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre completo</th>
+                    <th>Rol</th>
+                    <th>Salario</th>
+                    <th>Fecha contratación</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in personal_list %}
+                <tr>
+                    <td>{{ p.ID_Usuario }}</td>
+                    <td>{{ p.Nombre }} {{ p.Apellido }}</td>
+                    <td>{{ p.Rol }}</td>
+                    <td>${{ p.Salario }}</td>
+                    <td>{{ p.Fecha_Contratacion }}</td>
+                    <td>
+                        <a href="{{ url_for('editar_personal', id_personal=p.ID_Usuario) }}" class="btn btn-sm btn-warning">✏️ Editar</a>
+                        <form method="POST" action="{{ url_for('eliminar_personal', id_personal=p.ID_Usuario) }}" style="display:inline;" onsubmit="return confirm('¿Eliminar este empleado?')">
+                            <button class="btn btn-sm btn-danger">🗑️ Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}
+{% endblock %}

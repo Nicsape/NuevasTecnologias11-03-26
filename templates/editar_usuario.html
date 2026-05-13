@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Editar Usuario{% endblock %}
+{% block content %}
+<h2>✏️ Editar usuario: {{ usuario.Nombre }} {{ usuario.Apellido }}</h2>
+<form method="POST">
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label>Nombre</label>
+            <input type="text" name="nombre" value="{{ usuario.Nombre }}" class="form-control" required>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label>Apellido</label>
+            <input type="text" name="apellido" value="{{ usuario.Apellido }}" class="form-control" required>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label>Teléfono</label>
+            <input type="text" name="telefono" value="{{ usuario.Telefono }}" class="form-control" required>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label>Dirección</label>
+            <input type="text" name="direccion" value="{{ usuario.Direccion }}" class="form-control" required>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label>Edad</label>
+            <input type="number" name="edad" value="{{ usuario.Edad }}" class="form-control" required>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label>Seguro</label>
+            <input type="text" name="seguro" value="{{ usuario.Seguro }}" class="form-control" required>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label>Fecha registro</label>
+            <input type="date" name="fecha_registro" value="{{ usuario.Fecha_Registro }}" class="form-control" required>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label>Plan membresía</label>
+            <select name="plan_membresia" class="form-control">
+                <option value="">Sin membresía</option>
+                <option value="Basico" {% if membresia and membresia.Plan == 'Basico' %}selected{% endif %}>Básico (3 meses)</option>
+                <option value="Premium" {% if membresia and membresia.Plan == 'Premium' %}selected{% endif %}>Premium (6 meses)</option>
+                <option value="Anual" {% if membresia and membresia.Plan == 'Anual' %}selected{% endif %}>Anual (12 meses)</option>
+            </select>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label>Duración (meses)</label>
+            <input type="number" name="duracion_membresia" value="{{ membresia.Duracion_meses if membresia else '' }}" class="form-control" placeholder="3, 6 o 12">
+        </div>
+        {% if not es_admin %}
+        <div class="col-md-12 mb-3">
+            <div class="alert alert-info">Este usuario tiene rol Cliente (no modificable)</div>
+        </div>
+        {% endif %}
+    </div>
+    <button type="submit" class="btn btn-primary">Actualizar</button>
+    <a href="{{ url_for('usuarios') }}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

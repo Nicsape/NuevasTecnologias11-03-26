@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Inventario{% endblock %}
+{% block content %}
+<h2>Inventario de productos</h2>
+<a href="/registrar_inventario" class="btn btn-primary mb-3">➕ Agregar producto</a>
+{% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+{% else %}
+    <table class="table table-striped">
+        <thead><tr><th>Código</th><th>Producto</th><th>Categoría</th><th>Stock</th><th>Precio</th><th>Acciones</th></tr></thead>
+        <tbody>
+            {% for item in inventario_items %}
+            <tr>
+                <td>{{ item.CodigoInv }}</td>
+                <td>{{ item.Producto }}</td>
+                <td>{{ item.Categoria }}</td>
+                <td>{{ item.Stock }}</td>
+                <td>${{ item.Precio }}</td>
+                <td>
+                    <a href="/editar_inventario/{{ item.CodigoInv }}" class="btn btn-sm btn-warning">Editar</a>
+                    <form method="POST" action="/eliminar_inventario/{{ item.CodigoInv }}" style="display:inline;">
+                        <button class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar?')">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% endblock %}

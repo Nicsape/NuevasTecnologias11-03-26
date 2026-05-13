@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Editar máquina{% endblock %}
+{% block content %}
+<h2>Editar máquina</h2>
+<form method="POST">
+    <div class="mb-3"><label>Nombre</label><input type="text" name="nombre" value="{{ maquina.Nombre }}" class="form-control" required></div>
+    <div class="mb-3"><label>Categoría</label><input type="text" name="categoria" value="{{ maquina.Categoria }}" class="form-control" required></div>
+    <button type="submit" class="btn btn-primary">Actualizar</button>
+    <a href="/maquinas" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

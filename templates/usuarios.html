@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Usuarios{% endblock %}
+{% block content %}
+<h2>Usuarios registrados</h2>
+<a href="/registrar_usuario" class="btn btn-primary mb-3">➕ Registrar nuevo usuario</a>
+{% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+<table class="table table-bordered">
+    <thead>
+        <tr><th>ID</th><th>Nombre</th><th>Teléfono</th><th>Membresía</th><th>Acciones</th></tr>
+    </thead>
+    <tbody>
+        {% for u in usuarios_list %}
+        <tr>
+            <td>{{ u.ID_Usuario }}</td>
+            <td>{{ u.Nombre }} {{ u.Apellido }}</td>
+            <td>{{ u.Telefono }}</td>
+            <td>{{ u.Membresia_Plan or 'Sin membresía' }}</td>
+            <td>
+                <a href="/editar_usuario/{{ u.ID_Usuario }}" class="btn btn-sm btn-warning">Editar</a>
+                <form method="POST" action="/eliminar_usuario/{{ u.ID_Usuario }}" style="display:inline;">
+                    <button class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar usuario?')">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

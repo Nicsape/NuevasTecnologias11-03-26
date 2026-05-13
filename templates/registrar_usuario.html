@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Registrar Usuario{% endblock %}
+{% block content %}
+<h2>📝 Registrar nuevo usuario</h2>
+<form method="POST">
+    <div class="row">
+        <div class="col-md-6 mb-3"><label>Nombre</label><input type="text" name="nombre" class="form-control" required></div>
+        <div class="col-md-6 mb-3"><label>Apellido</label><input type="text" name="apellido" class="form-control" required></div>
+        <div class="col-md-6 mb-3"><label>Email</label><input type="email" name="email" class="form-control" required></div>
+        <div class="col-md-6 mb-3"><label>Usuario</label><input type="text" name="username" class="form-control" required></div>
+        <div class="col-md-6 mb-3"><label>Contraseña</label><input type="password" name="password" class="form-control" required></div>
+        <div class="col-md-6 mb-3"><label>Teléfono</label><input type="text" name="telefono" class="form-control" required></div>
+        <div class="col-md-6 mb-3"><label>Dirección</label><input type="text" name="direccion" class="form-control" required></div>
+        <div class="col-md-6 mb-3"><label>Edad</label><input type="number" name="edad" class="form-control" required></div>
+        <div class="col-md-6 mb-3"><label>Seguro</label><input type="text" name="seguro" class="form-control" required></div>
+        <div class="col-md-6 mb-3"><label>Fecha Registro</label><input type="date" name="fecha_registro" class="form-control" required></div>
+        
+        {% if es_admin %}
+        <div class="col-md-6 mb-3">
+            <label>Rol</label>
+            <select name="rol" class="form-control">
+                <option value="CLIENTE">Cliente</option>
+                <option value="ENTRENADOR">Entrenador</option>
+                <option value="RECEPCIONISTA">Recepcionista</option>
+                <option value="ADMIN">Administrador</option>
+                <option value="DISTRIBUIDOR">Distribuidor</option>
+            </select>
+        </div>
+        {% else %}
+        <input type="hidden" name="rol" value="CLIENTE">
+        <div class="col-md-6 mb-3">
+            <label>Rol</label>
+            <input type="text" class="form-control" value="Cliente" disabled>
+        </div>
+        {% endif %}
+        
+        <div class="col-md-6 mb-3">
+            <label>Plan Membresía (opcional)</label>
+            <select name="plan_membresia" class="form-control">
+                <option value="">Ninguno</option>
+                <option value="Basico">Básico (3 meses)</option>
+                <option value="Premium">Premium (6 meses)</option>
+                <option value="Anual">Anual (12 meses)</option>
+            </select>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success">Registrar</button>
+    <a href="{{ url_for('usuarios') }}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

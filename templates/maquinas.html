@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Máquinas{% endblock %}
+{% block content %}
+<h2>Máquinas del gimnasio</h2>
+<a href="/registrar_maquina" class="btn btn-primary mb-3">➕ Agregar máquina</a>
+{% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+<table class="table table-striped">
+    <thead><tr><th>Código</th><th>Nombre</th><th>Categoría</th><th>Acciones</th></tr></thead>
+    <tbody>
+        {% for m in maquinas_list %}
+        <tr>
+            <td>{{ m.CodigoMaq }}</td>
+            <td>{{ m.Nombre }}</td>
+            <td>{{ m.Categoria }}</td>
+            <td>
+                <a href="/editar_maquina/{{ m.CodigoMaq }}" class="btn btn-sm btn-warning">Editar</a>
+                <form method="POST" action="/eliminar_maquina/{{ m.CodigoMaq }}" style="display:inline;">
+                    <button class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar máquina?')">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

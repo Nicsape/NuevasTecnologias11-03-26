@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monster Gym - {% block title %}{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 70px;
+        }
+        .flash-messages {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">🏋️ Monster Gym</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/inventario">Inventario</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/maquinas">Máquinas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/usuarios">Usuarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/personal">Personal</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/distribuidores">Distribuidores</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav" id="authLinks">
+                    <!-- Aquí se cargará dinámicamente el contenido de autenticación -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category if category != 'message' else 'info' }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Función para actualizar el navbar según el estado de autenticación (usando cookies)
+        function actualizarNavbar() {
+            fetch('/profile')
+                .then(res => {
+                    if (res.ok) return res.json();
+                    throw new Error('No autenticado');
+                })
+                .then(user => {
+                    const authLinks = document.getElementById('authLinks');
+                    authLinks.innerHTML = `
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                👤 ${user.Nombre} ${user.Apellido}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href="#" onclick="cerrarSesion()">Cerrar sesión</a></li>
+                            </ul>
+                        </li>
+                    `;
+                })
+                .catch(() => {
+                    const authLinks = document.getElementById('authLinks');
+                    authLinks.innerHTML = `
+                        <li class="nav-item"><a class="nav-link" href="/login_page">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/register_page">Registro</a></li>
+                    `;
+                });
+        }
+
+        // Función para cerrar sesión (llama a /logout y recarga la página)
+        function cerrarSesion() {
+            fetch('/logout', { method: 'POST' })
+                .then(() => {
+                    window.location.href = '/';
+                })
+                .catch(err => console.error('Error al cerrar sesión:', err));
+        }
+
+        // Ejecutar al cargar la página
+        actualizarNavbar();
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
